@@ -1,0 +1,16 @@
+<div class="container"  *ngIf="mapCart.size > 0">
+    <div class="row">
+        <app-cart-item *ngFor="let food of mapCart | keyvalue" [food]="food.value"></app-cart-item>
+    </div>
+    <p *ngFor="let price of mapPrice | keyvalue">
+        {{price.key}} : {{price.value}}
+    </p>
+    <button  class="btn btn-primary" (click)="submitOrder()">Order</button>
+</div>
+
+
+<div class="container"  *ngIf="mapCart.size == 0">
+    <div class="row">
+    <p>Cart is empty!!!</p>
+    </div>
+</div>

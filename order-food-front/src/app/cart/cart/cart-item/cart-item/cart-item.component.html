@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="card-group vgr-cards">
+     <div class="card">
+        <div class="card-img-body">
+          <img class="card-img" src="https://picsum.photos/150/100" alt="Card image cap"></div>
+        <div class="card-body">
+          <h4 class="card-title">{{ food.name }}</h4>
+          <p class="card-text">{{ food.price }}</p>
+          <p class="card-text">{{ food.supplier.name }}</p>
+          <input 
+          type="number"
+          class="card-text" 
+          value="{{food.quantity}}"
+          (change)="onChange($event)"
+          >
+          <button (click)="deleteItemFromCart()" class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+      <!-- [(ngModel)]="quantity"
+          (ngModelChange)="onChange($event)"
+          #quantityRef -->

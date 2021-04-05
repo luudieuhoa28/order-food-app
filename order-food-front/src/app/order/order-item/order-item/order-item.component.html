@@ -1,0 +1,36 @@
+<div class="card">
+    <div class="card-header">
+      Order
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">id: {{order.id}}</h5>
+      <p class="card-text">shop: {{order.supplier.name}}</p>
+      <p class="card-text">time: {{order.time}}</p>
+      <button (click)="handleViewDetail()" class="btn btn-primary">View detail</button>
+      <button
+      class="btn btn-danger"
+      *ngIf="role == 'SUPPLIER' && order.status == 'PENDING'"
+      (click)="handleReject()">Reject</button>
+
+      <button 
+       class="btn btn-danger"
+       *ngIf="role == 'CUSTOMER' && order.status == 'PENDING'" 
+       (click)="handleCancel()">Cancel</button>
+
+      <button 
+      class="btn btn-success"
+      *ngIf="role == 'SUPPLIER' && order.status == 'PENDING'"
+      (click)="handleAccept()">Accept</button>
+
+      <button 
+      class="btn btn-success  "
+      *ngIf="role == 'CUSTOMER' && order.status == 'WAITING'"
+      (click)="handleRecieved()">Recieved</button>   
+
+      <button 
+      class="btn btn-success"
+      *ngIf="role == 'CUSTOMER' && order.status == 'DONE'"
+      (click)="handleFeedback()">Feedback</button>   
+
+     </div>
+  </div>

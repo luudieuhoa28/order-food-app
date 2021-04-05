@@ -1,0 +1,63 @@
+<div class="containter">
+  <div class="row">
+    <div class="col-sm-4">
+      <img class="card-img" src="https://picsum.photos/450/250" alt="Card image cap">
+    </div>
+    <div class="col-sm-8">
+      <h3> {{supplier.name}}</h3>
+      <p>{{supplier.address}}</p>
+      <div>
+        <span>{{supplier.openTime}} - {{supplier.closeTime}}</span>
+      </div>
+      <p>rate: {{supplier.rate}}</p>
+      <p>phone: {{supplier.phone}}</p>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-sm-3">
+      <h5>Foods</h5>
+      <button (click)="handleCreate()" 
+       class="btn btn-primary"
+       *ngIf="isMine">Create food</button>
+    </div>
+    <div class="col-sm-6">
+      <div class="d-flex flex-wrap flex-row justify-content-around align-content-around">
+        <app-food-item *ngFor="let food of foods"
+         [food]="food" 
+         [isMine]="isMine"
+         ></app-food-item>
+
+        <app-food-item
+         [ngClass]="{'d-none': !isCreating}"
+         [isCreating]="true"
+         [isMine]="isMine"
+         [supplierId]="supplier.id"></app-food-item>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr>
+<div class="container">
+  <app-comment-item *ngFor="let feedback of feedbacks" [feedback]="feedback"></app-comment-item>
+</div>
+<ng-container *ngIf="isLogedIn && (userRole == 'CUSTOMER' || userRole == 'SUPPLIER')">
+  <div class="row justify-content-center">
+    <div class="col"></div>
+    <div class="col">
+      <form (ngSubmit)="submitComment(f)" #f="ngForm">
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Example textarea</label>
+          <textarea class="form-control" rows="3" cols="9" ngModel name="comment" required
+            #comment="ngModel"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Submit</button>
+      </form>
+    </div>
+    <div class="col"></div>
+
+  </div>
+
+</ng-container>

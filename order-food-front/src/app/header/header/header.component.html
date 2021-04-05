@@ -1,0 +1,8 @@
+<nav class="navbarnavbar-dark bg-dark" justify-content-between>
+    <a class="navbar-brand" routerLink="/">Hoa neee</a>
+    <a *ngIf="!isLogedIn" class="navbar-item" routerLink="/login">Login</a>
+    <a *ngIf="isLogedIn" class="navbar-item" (click)="logout()">Logout</a>
+    <a class="navbar-brand" routerLink="/cart" *ngIf="role == 'CUSTOMER'" >Cart</a>
+    <a class="navbar-brand" routerLink="/order">Order</a>
+    <a *ngIf="isLogedIn" class="navbar-item" routerLink="/changeInfor">Change Information</a>
+  </nav>

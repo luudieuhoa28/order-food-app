@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="card-group vgr-cards">
+     <div class="card">
+        <div class="card-img-body">
+          <img class="card-img" src="https://picsum.photos/150/100" alt="Card image cap"></div>
+        <div class="card-body">
+            <form [formGroup]="foodForm" (ngSubmit)="submitForm()">
+                <div class="form-group">
+                    <label>
+                        Name:
+                    </label>
+                    <input class="form-control" type="text" formControlName="name">
+                    <small class="text-danger" *ngIf="foodForm.get('name')?.hasError('required')
+                    && foodForm.get('name')?.touched">
+                        This field is required.
+                    </small>
+                </div>
+    
+                <div class="form-group">
+                    <label>
+                        Price:
+                    </label>
+                    <input class="form-control" type="number" formControlName="price" required>
+    
+                    <small class="text-danger" *ngIf="foodForm.get('price')?.hasError('required')
+                    && foodForm.get('price')?.touched">
+                        This field is required.
+                    </small>
+                </div>
+    
+                <button type="submit" class="btn btn-primary" [disabled]="!foodForm.valid">Submit</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>

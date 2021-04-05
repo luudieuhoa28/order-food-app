@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="row  justify-content-center">
+        <form (ngSubmit)= "onClickLogin(f)" #f="ngForm">
+            <h3>Login form</h3>
+            <div class="form-group">
+              <label for="username">Username </label>
+              <input 
+              type="text"
+              class="form-control"
+               id="username"
+                aria-describedby="emailHelp" 
+                placeholder="Enter username"
+                ngModel
+                name="username"
+                required
+                #username="ngModel">
+            </div>
+            <small
+            *ngIf="username.invalid && (username.dirty || username.touched)"
+             class="form-text red-color">username is required</small>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input  
+              type="password" 
+              class="form-control"
+              id="exampleInputPassword1"
+               placeholder="Password"
+               name="password"
+               ngModel
+               required
+               #password="ngModel">
+            </div>
+            <small
+            *ngIf="password.invalid && (password.dirty || password.touched)"
+            class="form-text red-color">password is required</small>
+            <small class="form-text red-color">{{message}}</small>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form>
+    </div>
+    <a routerLink="/register">Register an account</a>
+</div>

@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <form>
+    <p>Please select one of shop:</p>
+    <div *ngFor="let supplier of suppliers">
+      <input type="radio" id="age1" name="age" 
+      value={{supplier.id}} 
+      [checked]="currentSupplier == supplier.id"
+      (change)="handleSelectSupplier($event)">
+      <label for="age1">{{supplier.name}}</label><br>
+    </div>
+  </form>
+  </div>
+  <div class="row">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" 
+        (click)="clickPending()"
+        [ngClass]="{'active': status === 'PENDING'}">Pending</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="clickWaiting()"
+        [ngClass]="{'active': status === 'WAITING'}">Waiting</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="clickDone()"
+        [ngClass]="{'active': status === 'DONE'}">Done</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="clickReject()"
+        [ngClass]="{'active': status === 'REJECT'}">Reject</a>
+      </li>
+    </ul>
+  </div>
+  <div class="row">
+    <div class="col">
+      <app-order-item *ngFor="let order of orders" [order]="order"></app-order-item>
+    </div>
+    <div class="col">
+      <app-order-detail></app-order-detail>
+    </div>
+  </div>
+</div>
