@@ -1,11 +1,14 @@
 <div class="card">
     <div class="card-header">
-      <h4>{{feedback.customer.name}}</h4>
+      <p class="h6">{{feedback.customer.name}}</p>
     </div>
     <div class="card-body">
       <blockquote class="blockquote mb-0">
         <p>{{feedback.comment}}</p>
-        <footer class="blockquote-footer">Time <cite title="Source Title">12/12/2012</cite></footer>
+        <footer class="blockquote-footer">Time <cite title="Source Title">{{feedback.time}}</cite></footer>
+        <button class="btn btn-danger"
+        *ngIf="feedback.customer.id == currentUserId"
+        (click)="handleDelete()"><fa-icon [icon]="deleteIcon"></fa-icon></button>
       </blockquote>
     </div>
   </div>

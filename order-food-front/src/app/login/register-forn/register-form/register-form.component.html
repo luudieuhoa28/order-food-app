@@ -1,66 +1,44 @@
 <div class="containter">
-  <div class="row  justify-content-center">
-    <form (ngSubmit) ="onSubmit(f)" #f="ngForm">  
-      <h3>Register form</h3>
-      <div class="form-group">
-      <label for="typeAccount">Who do you wanna be???</label>
-      <select class="custom-select custom-select-sm" name="typeAcc"
-      ngModel>
-        <option selected value="1">Customer</option>
-        <option value="2">Supplier</option>
-      </select>
+  <div class="row justify-content-center">
+    <div class="card">
+      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <p class="h3">Register form</p>
+        <div class="form-group">
+          <label for="typeAccount">Who do you wanna be???</label>
+          <select class="custom-select" name="typeAcc" ngModel  #typeAcc="ngModel">
+            <option selected value="1">Customer</option>
+            <option value="2">Supplier</option>
+          </select>
+          <small *ngIf="typeAcc.invalid && (typeAcc.dirty || typeAcc.touched)" class="form-text red-color">this field
+            is required</small>
+        </div>
+        <div class="form-group">
+          <label for="username">Email address</label>
+          <input type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Enter email"
+            name="username" ngModel required #username="ngModel">
+          <small *ngIf="username.invalid && (username.dirty || username.touched)" class="form-text red-color">username
+            is required</small>
+          <small class="form-text red-color">{{message}}</small>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" placeholder="Password" name="password" ngModel required
+            #password="ngModel">
+          <small *ngIf="password.invalid && (password.dirty || password.touched)" class="form-text red-color">password
+            is required</small>
+        </div>
+        <div class="form-group">
+          <label for="password">Re-Password</label>
+          <input type="password" class="form-control" placeholder="Re-Password" name="rePassword" ngModel required
+            #rePassword="ngModel">
+          <small *ngIf="rePassword.invalid && (rePassword.dirty || rePassword.touched)"
+            class="form-text red-color">rePassword is required</small>
+          <small *ngIf="rePassword.valid && rePassword.value != password.value" class="form-text red-color">Password
+            must match re-password</small>
+        </div>
+        <button type="submit" class="btn btn-primary"
+          [disabled]="f.invalid || rePassword.value != password.value">Submit</button>
+      </form>
     </div>
-      <div class="form-group">
-        <label for="username">Email address</label>
-        <input 
-        type="text" 
-        class="form-control"
-        id="username"
-         aria-describedby="emailHelp" 
-         placeholder="Enter email"
-         name="username"
-         ngModel
-         required
-         #username="ngModel">
-         <small
-         *ngIf="username.invalid && (username.dirty || username.touched)"
-          class="form-text red-color">username is required</small>
-          <small
-           class="form-text red-color">{{message}}</small>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input 
-        type="password"
-         class="form-control"
-          placeholder="Password"
-          name="password"
-          ngModel
-          required
-          #password="ngModel">
-          <small
-          *ngIf="password.invalid && (password.dirty || password.touched)"
-           class="form-text red-color">password is required</small>
-      </div>
-      <div class="form-group">
-        <label for="password">Re-Password</label>
-        <input 
-        type="password"
-         class="form-control"
-          placeholder="Re-Password"
-          name="rePassword"
-          ngModel
-          required
-          #rePassword="ngModel">
-          <small
-          *ngIf="rePassword.invalid && (rePassword.dirty || rePassword.touched)"
-           class="form-text red-color">rePassword is required</small>
-           <small
-           *ngIf="rePassword.valid && rePassword.value != password.value"
-            class="form-text red-color">Password must match re-password</small>
-      </div>
-      <button type="submit" class="btn btn-primary" [disabled]="f.invalid || rePassword.value != password.value">Submit</button>
-    </form>
   </div>
 </div>
-

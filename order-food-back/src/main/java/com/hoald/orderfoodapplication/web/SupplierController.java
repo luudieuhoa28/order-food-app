@@ -48,7 +48,7 @@ public class SupplierController extends AbstractApplicationController {
     public ResponseEntity<SupplierDTO> getSupplier(@PathVariable Long id) {
         if (supplierService.getById(id).isPresent()) {
             Supplier supplier = supplierService.getById(id).get();
-            SupplierDTO dto = mapper.supplierToDtoDetail(supplier);
+            SupplierDTO dto = mapper.   supplierToDtoDetail(supplier);
             return new ResponseEntity<>(dto, HttpStatus.OK);
         }
         throw new SupplierNotExistException("this supplier id does not exist!!!");

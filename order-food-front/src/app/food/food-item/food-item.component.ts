@@ -8,6 +8,15 @@ import { LocalStorageService } from 'src/app/local-storage.service';
 import { LoginNotificateService } from 'src/app/login-notificate.service';
 import { Food } from 'src/app/model/food.model';
 import { SupplierServive } from 'src/app/supplier.service';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { faLockOpen } from '@fortawesome/free-solid-svg-icons';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+
+
 
 @Component({
   selector: 'app-food-item',
@@ -29,6 +38,14 @@ export class FoodItemComponent implements OnInit, OnDestroy, AfterContentInit {
   isEditing = false;
   @Input() isCreating = false;
   @Input() supplierId: number = 0;
+  editIcon = faEdit;
+  addToCartIcon = faCartPlus;
+  deleteIcon = faTrashAlt;
+  cancelIcon = faWindowClose;
+  outOfStockIcon = faLock;
+  availableIcon = faLockOpen;
+  checkIcon = faCheck;
+
   constructor(private cartService: CartService,
     private loginNotificateService: LoginNotificateService,
     private myLocalStorage: LocalStorageService,
@@ -78,7 +95,8 @@ export class FoodItemComponent implements OnInit, OnDestroy, AfterContentInit {
       price: this.foodForm.value.price,
       supplier: {
         id: this.supplierId
-      }
+      },
+      version: this.food.version
     }
     this.http.post(endpoint, body,
       {
@@ -92,13 +110,21 @@ export class FoodItemComponent implements OnInit, OnDestroy, AfterContentInit {
         } else {
           this.supplierService.sendNotiFood("UPDATED");
         }
+      }, error => {
+        if (error.error.typeException == 'OPTIMISTIC_LOCKING') {
+          alert(error.error.message);
+          this.isEditing = false;
+        }
       })
 
   }
 
   handleCancle() {
-    this.isEditing = false;
-    this.supplierService.sendNotiFood("CANCEL");
+    if (this.isEditing) {
+      this.isEditing = false;
+    } else {
+      this.supplierService.sendNotiFood("CANCEL");
+    }
     this.foodForm.patchValue({
       name: this.food.name,
       price: this.food.price
@@ -107,6 +133,42 @@ export class FoodItemComponent implements OnInit, OnDestroy, AfterContentInit {
 
   handleEdit() {
     this.isEditing = true;
+  }
+
+  handleDelete() {
+    if (confirm("You really want to delete this item?")) {
+      this.updateFoodStatus("DELETE");
+    }
+  }
+
+  handleOutOfStock() {
+    this.updateFoodStatus("SOLD_OUT");
+  }
+
+  handleAvailable() {
+    this.updateFoodStatus("AVAILABLE");
+  }
+
+  updateFoodStatus(newStatus: string) {
+    let body = {
+      id: this.food.id,
+      status: newStatus,
+      version: this.food.version
+    }
+    this.http.post("http://localhost:8080/foods/supplier/update", body,
+      {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.myLocalStorage.getDataToSessionStorage(AppConstant.JWT_TOKEN)}`
+        })
+      }).subscribe(data => {
+        this.supplierService.sendNotiFood(newStatus);
+      }, error => {
+        if (error.error.typeException == 'OPTIMISTIC_LOCKING') {
+          alert(error.error.message);
+          this.isEditing = false;
+        }
+      })
   }
 
 }

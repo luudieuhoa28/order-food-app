@@ -2,3 +2,16 @@
     margin-top: 10%;
     margin-bottom: 10%;   
    }
+.information {
+    background: white;
+    padding: 5% 10%;
+    
+}
+img{
+    height: 300px;
+    width: 450px;
+}
+ngb-rating{
+    font-size: large;
+    color: rgb(228, 177, 67);
+}

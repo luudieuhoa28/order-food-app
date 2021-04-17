@@ -9,6 +9,7 @@ export class Supplier {
     public closeTime: string = "";
     public rate: number = 0;
     public phone: string = "";
+    public version: number = 0;
     public foods: Food[] = [];
     public feedbackIds: number[] = [];
     public user: Users = new Users();

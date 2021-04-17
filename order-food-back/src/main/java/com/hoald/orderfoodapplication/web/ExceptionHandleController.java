@@ -1,11 +1,13 @@
 package com.hoald.orderfoodapplication.web;
 
+import com.hoald.orderfoodapplication.model.exception.EditByOtherException;
 import com.hoald.orderfoodapplication.model.exception.ExistUsernameException;
 import com.hoald.orderfoodapplication.model.exception.OrderNotExistException;
 import com.hoald.orderfoodapplication.model.exception.SupplierNameExistException;
 import com.hoald.orderfoodapplication.model.requestresponse.ErrorResponse;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
+import org.hibernate.StaleObjectStateException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -62,7 +64,15 @@ public class ExceptionHandleController extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleSupplierNameExistException(Exception ex, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse();
         errorResponse.setMessage(ex.getMessage());
-        errorResponse.setTypeException("EXPIRED_JWT");
+        errorResponse.setTypeException("SUPPLIER_NAME_EXISTED");
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({EditByOtherException.class})
+    public ResponseEntity<Object> handleOptimistiLockingException(Exception ex, WebRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setMessage(ex.getMessage());
+        errorResponse.setTypeException("OPTIMISTIC_LOCKING");
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 

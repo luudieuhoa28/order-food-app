@@ -19,8 +19,8 @@ public class FoodController extends AbstractApplicationController {
     private FoodService foodService;
 
     @GetMapping("/getBySupplierId")
-    public ResponseEntity<List<FoodDTO>> getFoodBySupplierId(@RequestParam Long supplierId) {
-        List<FoodDTO> foodDTOS = this.foodService.getFoodsBySupplierId(supplierId)
+    public ResponseEntity<List<FoodDTO>> getFoodBySupplierId(@RequestParam Long supplierId, @RequestParam String status) {
+        List<FoodDTO> foodDTOS = this.foodService.getFoodsBySupplierIdAndStatus(supplierId, status)
                 .stream()
                 .map(mapper::foodToDTO)
                 .collect(Collectors.toList());

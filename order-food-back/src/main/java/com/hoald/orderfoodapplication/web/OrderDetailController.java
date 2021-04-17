@@ -20,10 +20,13 @@ public class OrderDetailController extends AbstractApplicationController {
 
     @GetMapping("/customersupplier/getOrderDetailByOrderId")
     public ResponseEntity<List<OrderDetailDTO>> getOrderDetailByOrderId(@RequestParam Long orderId) {
+
+
         List<OrderDetailDTO> orderDetailDTOS = orderDetailService.getOrderDetailByOrderId(orderId)
                 .stream()
                 .map(mapper::orderDetailToDTO)
                 .collect(Collectors.toList());
+
         return new ResponseEntity<>(orderDetailDTOS, HttpStatus.OK);
     }
 }

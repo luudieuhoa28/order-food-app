@@ -27,10 +27,6 @@
       *ngIf="role == 'CUSTOMER' && order.status == 'WAITING'"
       (click)="handleRecieved()">Recieved</button>   
 
-      <button 
-      class="btn btn-success"
-      *ngIf="role == 'CUSTOMER' && order.status == 'DONE'"
-      (click)="handleFeedback()">Feedback</button>   
 
      </div>
   </div>

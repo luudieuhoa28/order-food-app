@@ -5,5 +5,7 @@ export class Food {
     public name: string = "";
     public price: number = 0;
     public quantity: number = 0;
+    public status: string = "";
+    public version: number = 0;
     public supplier: Supplier = new Supplier();
 }

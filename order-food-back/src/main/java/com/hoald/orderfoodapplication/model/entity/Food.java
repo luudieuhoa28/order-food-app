@@ -22,7 +22,7 @@ public class Food {
     @Column
     private String imgPath;
 
-    @Column
+    @Column(columnDefinition = "varchar(255) default 'AVAILABLE'")
     private String status;
 
     @ManyToOne

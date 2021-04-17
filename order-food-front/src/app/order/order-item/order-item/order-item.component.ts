@@ -34,23 +34,24 @@ export class OrderItemComponent implements OnInit {
 
   handleReject() {
     this.updateStatus("REJECT");
+    this.orderService.sendOrder(new Orders())
   }
 
   handleCancel() {
     this.updateStatus("DELETE");
+    this.orderService.sendOrder(new Orders())
   }
 
   handleAccept() {
     this.updateStatus("WAITING");
+    this.orderService.sendOrder(new Orders())
   }
 
   handleRecieved() {
     this.updateStatus("DONE");
+    this.orderService.sendOrder(new Orders())
   }
 
-  handleFeedback() {
-
-  }
 
   updateStatus(status: string) {
     let param = new HttpParams();

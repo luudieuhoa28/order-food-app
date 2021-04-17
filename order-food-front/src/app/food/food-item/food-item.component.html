@@ -1,68 +1,63 @@
-<div class="container">
-  <div class="card-group vgr-cards">
-    <div class="card">
-      <div class="card-img-body">
-        <img class="card-img" src="https://picsum.photos/150/100" alt="Card image cap">
-      </div>
-      <div class="card-body">
-        <form [formGroup]="foodForm" (ngSubmit)="submitForm()">
-          <div class="form-group">
-            <!-- <label>
+<!-- <div class="container"> -->
+<div class="card-group vgr-cards">
+  <div class="card">
+    <div class="card-img-body">
+      <img class="card-img" src="https://picsum.photos/30/30" alt="Card image cap">
+    </div>
+    <div class="card-body">
+      <form [formGroup]="foodForm" (ngSubmit)="submitForm()" class="foodForm">
+        <div class="form-group foodName">
+          <!-- <label>
               Name:
             </label> -->
-            <input 
-            class="form-control"
-            [ngClass]="{'normal-cart': !isEditing && !isCreating}" 
-            type="text" 
-            formControlName="name"
-            [readonly]="!isEditing && !isCreating"
-            required>
-            <small class="text-danger" *ngIf="foodForm.get('name')?.hasError('required')
+          <input class="form-control" [ngClass]="{'normal-cart': !isEditing && !isCreating}" type="text"
+            formControlName="name" [readonly]="!isEditing && !isCreating" required>
+          <small class="text-danger" *ngIf="foodForm.get('name')?.hasError('required')
                   && foodForm.get('name')?.touched">
-              This field is required.
-            </small>
-          </div>
+            This field is required.
+          </small>
+        </div>
 
-          <div class="form-group">
-            <!-- <label>
+        <div class="form-group foodPrice">
+          <!-- <label>
               Price:
             </label> -->
-            <input
-             class="form-control" 
-             [ngClass]="{'normal-cart': !isEditing && !isCreating}" 
-             type="number" 
-             formControlName="price" 
-             required
-             [readonly]="!isEditing && !isCreating">
+          <input class="form-control" [ngClass]="{'normal-cart': !isEditing && !isCreating}" type="number"
+            formControlName="price" required [readonly]="!isEditing && !isCreating">
 
-            <small class="text-danger" *ngIf="foodForm.get('price')?.hasError('required')
+          <small class="text-danger" *ngIf="foodForm.get('price')?.hasError('required')
                   && foodForm.get('price')?.touched">
-              This field is required.
-            </small>
-          </div>
+            This field is required.
+          </small>
+        </div>
+
+
+
+        <div class="button">
           <a *ngIf="isLogedIn && (userRole == 'CUSTOMER')" class="btn btn-outline-primary"
-            (click)="handleAddToCart()">Add to cart</a>
+            (click)="handleAddToCart()"> <fa-icon [icon]="addToCartIcon"></fa-icon></a>
 
-          <button type="submit" 
-          class="btn btn-primary" 
-          [disabled]="!foodForm.valid"
-          [ngClass]="{'d-none': !isEditing && !isCreating}"
-          *ngIf="isMine">Submit</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!foodForm.valid"
+            [ngClass]="{'d-none': !isEditing && !isCreating}" *ngIf="isMine"> <fa-icon [icon]="checkIcon"></fa-icon></button>
 
-          <button type="button"
-           class="btn btn-primary" 
-           [ngClass]="{'d-none': isEditing || isCreating}"
-           (click)="handleEdit()"
-           *ngIf="isMine">Edit</button>
+          <button type="button" class="btn btn-primary" [ngClass]="{'d-none': isEditing || isCreating}"
+            (click)="handleEdit()" *ngIf="isMine"> <fa-icon [icon]="editIcon"></fa-icon></button>
 
-           <button type="button"
-           class="btn btn-secondary" 
-           [ngClass]="{'d-none': !isEditing && !isCreating}"
-           (click)="handleCancle()"
-           *ngIf="isMine">Cacel</button>
+          <button type="button" class="btn btn-secondary" [ngClass]="{'d-none': !isEditing && !isCreating}"
+            (click)="handleCancle()" *ngIf="isMine"><fa-icon [icon]="cancelIcon"></fa-icon></button>
 
-        </form>
-      </div>
+          <button type="button" class="btn btn-danger" [ngClass]="{'d-none': isEditing || isCreating}"
+            (click)="handleDelete()" *ngIf="isMine"><fa-icon [icon]="deleteIcon"></fa-icon></button>
+
+          <button type="button" class="btn btn-warning" [ngClass]="{'d-none': isEditing || isCreating}"
+            (click)="handleOutOfStock()" *ngIf="isMine && food.status != 'SOLD_OUT'"><fa-icon [icon]="outOfStockIcon"></fa-icon></button>
+
+          <button type="button" class="btn btn-success" [ngClass]="{'d-none': isEditing || isCreating}"
+            (click)="handleAvailable()" *ngIf="food.status == 'SOLD_OUT' && isMine"><fa-icon [icon]="availableIcon"></fa-icon></button>
+        </div>
+      </form>
+
     </div>
   </div>
 </div>
+<!-- </div> -->

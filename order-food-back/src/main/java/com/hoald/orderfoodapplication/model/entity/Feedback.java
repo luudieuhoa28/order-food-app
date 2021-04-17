@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Feedback {
@@ -17,6 +18,9 @@ public class Feedback {
 
     @Column
     private double starRate;
+
+    @Column
+    private LocalDateTime time;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
@@ -44,6 +48,15 @@ public class Feedback {
     }
 
     public Feedback() {
+    }
+
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 
     public Long getId() {

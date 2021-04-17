@@ -1,6 +1,9 @@
 package com.hoald.orderfoodapplication.model.dto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hoald.orderfoodapplication.model.entity.Supplier;
 import com.hoald.orderfoodapplication.model.entity.Users;
+
+import java.time.LocalDateTime;
 
 
 public class FeedbackDTO {
@@ -15,7 +18,18 @@ public class FeedbackDTO {
 
     private Supplier supplier;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime time;
+
     public FeedbackDTO() {
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 
     public Long getId() {

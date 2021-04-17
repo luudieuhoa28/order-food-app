@@ -21,6 +21,8 @@ export class OrderPageComponent implements OnInit, OnDestroy, AfterContentInit {
   suppliers: Supplier[] = [];
   currentSupplier: number = 0;
   statusOrderSubcription= new Subscription();
+  displayDetail = true;
+  feedbackSupplierId = 0;
   constructor(private http: HttpClient,
     private storage: LocalStorageService, 
     private orderService: OrderService) { }
@@ -33,6 +35,8 @@ export class OrderPageComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   ngOnInit(): void {
+   
+
     this.getOrders();
     this.statusOrderSubcription = this.orderService.recieveUpdatedStatus().subscribe(newStatus => {
       this.getOrders();
@@ -96,24 +100,29 @@ export class OrderPageComponent implements OnInit, OnDestroy, AfterContentInit {
   clickPending() {
     this.status = "PENDING";
     this.getOrders()
+    this.orderService.sendOrder(new Orders())
   }
 
   clickWaiting() {
     this.status = "WAITING";
     this.getOrders()
+    this.orderService.sendOrder(new Orders())
   }
 
   clickDone() {
     this.status = "DONE";
     this.getOrders()
+    this.orderService.sendOrder(new Orders())
   }
 
   clickReject() {
     this.status = "REJECT";
     this.getOrders()
+    this.orderService.sendOrder(new Orders())
   }
 
   handleSelectSupplier(event: any) {
+    this.orderService.sendOrder(new Orders())
     let endpoint = "http://localhost:8080/orders/supplier/getBySupplierIdAndStatus";
     let param = "supplierId";
     if (event.target.checked) {

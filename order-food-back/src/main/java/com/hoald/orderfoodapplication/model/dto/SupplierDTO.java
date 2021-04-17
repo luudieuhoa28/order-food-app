@@ -26,6 +26,8 @@ public class SupplierDTO {
 
     private UserDTO user;
 
+    private int version;
+
     List<Long> feedbackIds = new ArrayList<>();
 
     List<Food> foods = new ArrayList<>();
@@ -33,6 +35,14 @@ public class SupplierDTO {
     List<Orders> orders = new ArrayList<>();
 
     public SupplierDTO() {
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public UserDTO getUser() {

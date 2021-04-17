@@ -1,3 +1,6 @@
 .space-between {
-    margin-top: 10%;
-   }
+  margin-bottom: 10%;
+}
+.card {
+  cursor: pointer;
+}

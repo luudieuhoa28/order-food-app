@@ -42,4 +42,17 @@ public class FeedbackController extends AbstractApplicationController {
         feedback = feedbackService.addAnFeedback(feedback);
         return new ResponseEntity<>(mapper.feedbackToDTO(feedback), HttpStatus.OK);
     }
+
+    @PostMapping("/customersupplier/update")
+    public ResponseEntity<FeedbackDTO> updateFeedback(@RequestBody FeedbackDTO feedbackDTO) {
+        Feedback feedback = mapper.dtoToFeedback(feedbackDTO);
+        feedback = feedbackService.updateFeedBack(feedback);
+        return new ResponseEntity<>(mapper.feedbackToDTO(feedback), HttpStatus.OK);
+    }
+
+    @DeleteMapping("customersupplier/delete")
+    public ResponseEntity<Boolean> deleteFeedback(@RequestParam Long feedbackId) {
+        this.feedbackService.deleteFeedback(feedbackId);
+        return new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+    }
 }

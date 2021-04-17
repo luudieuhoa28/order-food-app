@@ -1,5 +1,28 @@
+.foodName { grid-area: name; }
+.foodPrice { grid-area: price; }
+.button { grid-area: button; }
+
+
 .normal-cart {
-    border-width: 0px;
-    border: none;
-  }
-  
+  border-width: 0px;
+  border: none;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 25% 75%;
+}
+
+.foodForm {
+  display: grid;
+  /* grid-template-columns: 40% 40%; */
+  grid-template-areas: 'name price'
+  'button button'
+}
+
+.card-img {
+  padding: 10px;
+}
+.button {
+  text-align: right;
+}

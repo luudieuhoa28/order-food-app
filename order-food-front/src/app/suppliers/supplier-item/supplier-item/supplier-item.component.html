@@ -1,9 +1,9 @@
-<div class="card space-between" style="width: 18rem;">
+<div class="card space-between" (click)="handleViewDetail()">
   <img class="card-img-top" src="https://picsum.photos/250/150" alt="Card image cap">
   <div class="card-body">
-    <h5 class="card-title">{{ supplier.name }}</h5>
+    <p class="card-title h5">{{ supplier.name }}</p>
     <p class="card-text">{{ supplier.address }}</p>
-    <a [routerLink]="['/supplier', supplier.id]" class="btn btn-primary">View detail</a>
+    <!-- <a [routerLink]="['/supplier', supplier.id]" class="btn btn-primary">View detail</a> -->
     <button *ngIf="supplier.user.id == currentUserId" type="button" class="btn btn-danger"
       (click)="delete()">Delete</button>
     <a *ngIf="supplier.user.id == currentUserId" type="button" class="btn btn-warning"

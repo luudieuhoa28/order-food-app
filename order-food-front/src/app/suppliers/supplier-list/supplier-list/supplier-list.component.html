@@ -1,30 +1,24 @@
 <div class="container">
-    <mat-paginator
-    *ngIf="suppliers.length > 0"
-     [length]="page.length" 
-     [pageSize]="page.pageSize" 
-     [pageIndex]="page.pageIndex" 
-     (page)="handlePage($event)">
-    </mat-paginator>
-    <div class="container">
-        <div class="row">
-            <a 
-            *ngIf="isLogedIn && role == 'SUPPLIER'"
-            class="btn btn-primary"
-            routerLink="/suppliers/create">Create shop</a>
 
-            <input type="checkbox" 
-            [(ngModel)]="isMine" 
-            (change)="checkIsMine($event)" />
-            <label for="vehicle1"> My shops</label><br>
+    <div class="container">
+        <div class="row ">
+            <a *ngIf="isLogedIn && role == 'SUPPLIER'" class="btn btn-primary" routerLink="/suppliers/create">Create
+                shop</a>
+            <div *ngIf="role == 'SUPPLIER'">
+                <input type="checkbox" [(ngModel)]="isMine" (change)="checkIsMine($event)" />
+                <label for="vehicle1"> My shops</label><br>
+            </div>
+
         </div>
     </div>
-    <div class="d-flex flex-wrap flex-row justify-content-around align-content-around">
+    <div class="d-flex flex-wrap flex-row justify-content-around align-content-around  supplier-area ">
         <app-supplier-item *ngFor="let supplier of suppliers" [supplier]="supplier">
         </app-supplier-item>
     </div>
-
+    <mat-paginator *ngIf="suppliers.length > 0" [length]="page.length" [pageSize]="page.pageSize"
+        [pageIndex]="page.pageIndex" (page)="handlePage($event)">
+    </mat-paginator>
     <div *ngIf="suppliers.length == 0">
-        there is no supplier
+       <img src="assets/img/no-result.PNG" alt="">
     </div>
 </div>

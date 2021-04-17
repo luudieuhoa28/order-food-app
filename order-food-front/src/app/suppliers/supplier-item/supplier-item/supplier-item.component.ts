@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AppConstant } from 'src/app/app-constant';
 import { LocalStorageService } from 'src/app/local-storage.service';
@@ -20,7 +21,8 @@ export class SupplierItemComponent implements OnInit {
   constructor(private storage: LocalStorageService,
     private loginNotification: LoginNotificateService,
     private http: HttpClient,
-    private supplierService: SupplierServive) { }
+    private supplierService: SupplierServive,
+    private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.supplier)
@@ -49,6 +51,10 @@ export class SupplierItemComponent implements OnInit {
           this.supplierService.sendNotiDelete(this.supplier.id);
         })
     }
+  }
+
+  handleViewDetail() {
+    this.router.navigate([`/supplier/${this.supplier.id}`])
   }
 
 

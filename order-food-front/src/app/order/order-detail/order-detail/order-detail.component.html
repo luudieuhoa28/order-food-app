@@ -1,43 +1,51 @@
-<div class="containter" *ngIf="orderDetails.length > 0">
-  <h2>Order Id: {{order.id}}</h2>
-  <div class="row">
-    <div *ngIf="orderDetails.length > 0">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">No.</th>
-            <th scope="col">Food</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Unit Price</th>
-            <th scope="col">Total amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let orderDetail of orderDetails; let i = index">
-            <th scope="row">{{i}}</th>
-            <td>{{orderDetail.food.name}}</td>
-            <td>{{orderDetail.numOfDishes}}</td>
-            <td>{{orderDetail.food.price}}</td>
-            <td>{{orderDetail.food.price * orderDetail.numOfDishes}}</td>
-          </tr>
-          <tr>
-            <td colspan="4">Total money:</td>
-            <td>{{totalMoney}}</td>
-          </tr>
-        </tbody>
-      </table>
+<div class="card" *ngIf="orderDetails.length > 0">
+
+
+  <div class="containter">
+    <h2>Order Id: {{order.id}}</h2>
+    <div class="row">
+      <div *ngIf="orderDetails.length > 0">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">No.</th>
+              <th scope="col">Food</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Unit Price</th>
+              <th scope="col">Total amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let orderDetail of orderDetails; let i = index">
+              <th scope="row">{{i}}</th>
+              <td>{{orderDetail.food.name}}</td>
+              <td>{{orderDetail.numOfDishes}}</td>
+              <td>{{orderDetail.food.price}}</td>
+              <td>{{orderDetail.food.price * orderDetail.numOfDishes}}</td>
+            </tr>
+            <tr>
+              <td colspan="4">Total money:</td>
+              <td>{{totalMoney}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>Payment: cash</p>
+      </div>
     </div>
-  </div>
-  <div *ngIf="role == 'SUPPLIER' && orderDetails.length > 0">
-    <h3>Customer information</h3>
-    <p>Name: {{order.customer.name}}</p>
-    <p>Phone: {{order.customer.phone}}</p>
-    <p>Address: {{order.customer.address}}</p>
-  </div>
-  <div *ngIf="role == 'CUSTOMER' && orderDetails.length > 0">
-    <h3>Supplier information</h3>
-    <p>Name: {{order.supplier.name}}</p>
-    <p>Phone: {{order.supplier.phone}}</p>
-    <p>Address: {{order.supplier.address}}</p>
+    <div *ngIf="role == 'SUPPLIER' && orderDetails.length > 0">
+      <p class="h5">Customer information</p>
+      <p>Name: {{order.customer.name}}</p>
+      <p>Phone: {{order.customer.phone}}</p>
+      <p>Address: {{order.customer.address}}</p>
+    </div>
+    <div *ngIf="role == 'CUSTOMER' && orderDetails.length > 0">
+      <p class="h5">Supplier information</p>
+      <p>Name: {{order.supplier.name}}</p>
+      <p>Phone: {{order.supplier.phone}}</p>
+      <p>Address: {{order.supplier.address}}</p>
+    </div>
+
+    <app-feedback [supplierId]="order.supplier.id" *ngIf="order.status == 'DONE' && !isSentFeedback && role == 'CUSTOMER'"></app-feedback>
+    <p *ngIf="isSentFeedback">Your feedback are sent</p>
   </div>
 </div>

@@ -26,6 +26,11 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { ChangeUserInforFormComponent } from './login/change-user-infor/change-user-infor-form/change-user-infor-form.component';
 import { SupplierFormComponent } from './suppliers/supplier-form/supplier-form/supplier-form.component';
 import { FoodFormComponent } from './food/food-form/food-form/food-form.component';
+import { FeedbackComponent } from './feedback/feedback/feedback.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CarouselComponent } from './carousel/carousel/carousel.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 @NgModule({
   declarations: [
@@ -49,7 +54,9 @@ import { FoodFormComponent } from './food/food-form/food-form/food-form.componen
     PaginationComponent,
     ChangeUserInforFormComponent,
     SupplierFormComponent,
-    FoodFormComponent
+    FoodFormComponent,
+    FeedbackComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +65,9 @@ import { FoodFormComponent } from './food/food-form/food-form/food-form.componen
     HttpClientModule,
     StorageServiceModule,
     MatPaginatorModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

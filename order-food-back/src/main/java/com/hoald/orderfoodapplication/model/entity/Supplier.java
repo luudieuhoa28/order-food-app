@@ -51,7 +51,19 @@ public class Supplier {
     @JsonIgnore
     List<Orders> orders = new ArrayList<>();
 
+    @Column
+    @Version
+    private int version;
+
     public Supplier() {
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public Users getUser() {

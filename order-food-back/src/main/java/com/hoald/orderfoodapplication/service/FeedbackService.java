@@ -8,4 +8,6 @@ public interface FeedbackService {
     List<Feedback> getFeedbackByIds(List<Long> ids);
     Feedback addAnFeedback(Feedback feedback);
     List<Feedback> getFeedbackBySupplierId(Long id);
+    Feedback updateFeedBack(Feedback feedback);
+    void deleteFeedback(Long feedbackId);
 }

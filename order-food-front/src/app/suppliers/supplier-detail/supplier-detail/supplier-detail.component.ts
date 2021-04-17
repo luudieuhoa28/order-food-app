@@ -10,6 +10,12 @@ import { NgForm } from '@angular/forms';
 import { LocalStorageService } from 'src/app/local-storage.service';
 import { AppConstant } from 'src/app/app-constant';
 import { SupplierServive } from 'src/app/supplier.service';
+import { DatePipe } from '@angular/common';
+import { faClock } from '@fortawesome/free-solid-svg-icons';
+import { faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-supplier-detail',
@@ -25,9 +31,14 @@ export class SupplierDetailComponent implements OnInit, OnDestroy, AfterContentI
   supplier: Supplier = new Supplier();
   subcription = new Subscription();
   supplierSubcription = new Subscription();
+  commentSubcription = new Subscription();
   userRole: string = "";
   isMine = false;
   isCreating = false;
+  clockIcon = faClock;
+  phoneIcon = faPhone;
+  mapIcon = faMapMarkerAlt;
+  plusIcon = faPlus;
   constructor(private activeRoute: ActivatedRoute,
     private http: HttpClient,
     private loginNotificateService: LoginNotificateService,
@@ -38,17 +49,24 @@ export class SupplierDetailComponent implements OnInit, OnDestroy, AfterContentI
     if (this.myLocalStorage.getDataToLocalStorage(AppConstant.CURRENT_USER_ID) != "") {
       this.isLogedIn = true;
       this.userRole = this.myLocalStorage.getDataToSessionStorage(AppConstant.CURRENT_USER_ROLE);
-
     }
   }
 
   ngOnInit(): void {
+    this.commentSubcription = this.supplierService.recieveNotiComment().subscribe(status => {
+      this.fetchComment();
+    })
+
     this.supplierSubcription = this.supplierService.recieveNotiFood().subscribe(status => {
       if (status == "CREATED") {
         this.fetchFood();
         this.isCreating = false;
-      } else if (status == "UPDATED") {
+      } else if (status == "UPDATED" ||
+        status == "DELETE" ||
+        status == "SOLD_OUT" ||
+        status == "AVAILABLE") {
         this.fetchFood();
+
         this.isCreating = false;
       } else {
         this.isCreating = false;
@@ -75,10 +93,12 @@ export class SupplierDetailComponent implements OnInit, OnDestroy, AfterContentI
   ngOnDestroy(): void {
     this.subcription.unsubscribe();
     this.supplierSubcription.unsubscribe();
+    this.commentSubcription.unsubscribe();
   }
 
   submitComment(form: NgForm) {
-
+    const datepipe: DatePipe = new DatePipe('en-US')
+    let formattedDate = datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm:ss')
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -88,6 +108,7 @@ export class SupplierDetailComponent implements OnInit, OnDestroy, AfterContentI
     let body = {
       comment: form.form.value.comment,
       starRate: 0,
+      time: formattedDate,
       customer: {
         id: this.myLocalStorage.getDataToSessionStorage(AppConstant.CURRENT_USER_ID)
       },
@@ -113,8 +134,15 @@ export class SupplierDetailComponent implements OnInit, OnDestroy, AfterContentI
   }
 
   fetchFood() {
+    let status = "";
+    if (this.isMine) {
+      status = "SOLD_OUT";
+    }
     this.http.get<Food[]>("http://localhost:8080/foods/getBySupplierId",
-      { params: new HttpParams().set("supplierId", this.supplier.id + "") })
+      {
+        params: new HttpParams().set("supplierId", this.supplier.id + "")
+          .set("status", status)
+      })
       .subscribe(data => {
         this.foods = data;
         console.log("food", data)

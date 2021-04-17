@@ -30,6 +30,7 @@ public class Mapper {
         dto.setName(supplier.getName());
         dto.setImgPath(supplier.getImgPath());
         dto.setStatus(supplier.getStatus());
+        dto.setVersion(supplier.getVersion());
         if(supplier.getUser() != null) {
             dto.setUser(new UserDTO(supplier.getUser().getId()));
         }
@@ -46,6 +47,7 @@ public class Mapper {
         supplier.setStatus(dto.getStatus());
         supplier.setOpenTime(dto.getOpenTime());
         supplier.setCloseTime(dto.getCloseTime());
+        supplier.setVersion(dto.getVersion());
         if (dto.getUser() != null) {
             supplier.setUser(new Users(dto.getUser().getId()));
         }
@@ -62,6 +64,7 @@ public class Mapper {
         dto.setCloseTime(supplier.getCloseTime());
         dto.setImgPath(supplier.getImgPath());
         dto.setStatus(supplier.getStatus());
+        dto.setVersion(supplier.getVersion());
         double rate = supplier.getFeedbacks().stream()
                 .filter(feedback -> feedback.getStarRate() != 0)
                 .map(Feedback::getStarRate)
@@ -80,6 +83,7 @@ public class Mapper {
         dto.setComment(feedback.getComment());
         dto.setStarRate(feedback.getStarRate());
         dto.setCustomer(new Users(feedback.getCustomer().getId(), feedback.getCustomer().getName()));
+        dto.setTime(feedback.getTime());
         return dto;
     }
 
@@ -90,12 +94,14 @@ public class Mapper {
         feedback.setStarRate(dto.getStarRate());
         feedback.setCustomer(new Users(dto.getCustomer().getId(), dto.getCustomer().getName()));
         feedback.setSupplier(dto.getSupplier());
+        feedback.setTime(dto.getTime());
         return feedback;
     }
 
     public Users userDTOToUser(UserDTO dto) {
         Users user = new Users();
         user.setId(dto.getId());
+        user.setPassword(dto.getPassword());
         user.setName(dto.getName());
         user.setPhone(dto.getPhone());
         user.setAddress(dto.getAddress());

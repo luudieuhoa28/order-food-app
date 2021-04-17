@@ -22,6 +22,8 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
   totalMoney: number = 0;
   order: Orders = new Orders();
   role: string = "";
+  feedbackSubcription = new Subscription();
+  isSentFeedback = false;
   constructor(private orderService: OrderService,
     private http: HttpClient,
     private storage: LocalStorageService,
@@ -31,9 +33,14 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subcription.unsubscribe();
     this.subcriptionLogin.unsubscribe();
+    this.feedbackSubcription.unsubscribe();
+
   }
 
   ngOnInit(): void {
+    this.feedbackSubcription = this.orderService.recieveNotiSentFb().subscribe(isSent => {
+      this.isSentFeedback = isSent;
+   })
     this.subcriptionLogin = this.loginNotificateService.recieveNotification().subscribe(isLogedIn => {
       this.role = this.storage.getDataToSessionStorage(AppConstant.CURRENT_USER_ROLE);
     })

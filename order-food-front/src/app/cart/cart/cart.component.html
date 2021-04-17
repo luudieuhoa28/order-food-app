@@ -5,6 +5,7 @@
     <p *ngFor="let price of mapPrice | keyvalue">
         {{price.key}} : {{price.value}}
     </p>
+    <p>Payment: cash</p>
     <button  class="btn btn-primary" (click)="submitOrder()">Order</button>
 </div>
 

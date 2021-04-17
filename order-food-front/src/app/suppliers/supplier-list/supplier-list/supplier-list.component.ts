@@ -9,7 +9,7 @@ import { PageInformation } from 'src/app/model/page.model';
 import { LoginNotificateService } from 'src/app/login-notificate.service';
 import { SupplierServive } from 'src/app/supplier.service';
 
-const DEFAULT_PAGE_SIZE: number = 2;
+const DEFAULT_PAGE_SIZE: number = 6;
 
 @Component({
   selector: 'app-supplier-list',

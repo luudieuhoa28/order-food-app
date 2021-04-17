@@ -1,0 +1,29 @@
+:host{
+    height: 100%;
+}
+.card{
+    padding: 10%;
+}
+
+.container{
+    height: 100%;
+}
+
+.btn{
+    background: linear-gradient(to right, rgb(255, 102, 0), rgb(222, 233, 77));
+    border-radius: 25px;
+    width: 100%;
+    border: none;
+}
+.h3{
+    text-align: center;
+    padding-bottom: 10%;
+}
+
+label{
+    font-weight: bold;
+}
+
+a{
+    margin-top: 30%;
+}
